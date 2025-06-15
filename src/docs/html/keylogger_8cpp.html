@@ -1,0 +1,1084 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Keylogger: Файл keylogger.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Keylogger
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('keylogger_8cpp.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Функции</a> &#124;
+<a href="#var-members">Переменные</a>  </div>
+  <div class="headertitle"><div class="title">Файл keylogger.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;keylogger.h&quot;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;ctime&gt;</code><br />
+<code>#include &lt;windows.h&gt;</code><br />
+<code>#include &lt;winuser.h&gt;</code><br />
+<code>#include &lt;winreg.h&gt;</code><br />
+<code>#include &lt;psapi.h&gt;</code><br />
+<code>#include &lt;winsock2.h&gt;</code><br />
+<code>#include &lt;ws2tcpip.h&gt;</code><br />
+<code>#include &lt;openssl/ssl.h&gt;</code><br />
+<code>#include &lt;openssl/err.h&gt;</code><br />
+<code>#include &lt;thread&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cctype&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;codecvt&gt;</code><br />
+<code>#include &lt;locale&gt;</code><br />
+<code>#include &lt;shlobj.h&gt;</code><br />
+<code>#include &lt;aclapi.h&gt;</code><br />
+<code>#include &lt;sddl.h&gt;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:abe43ecf629431a456b613c219b6e5769" id="r_abe43ecf629431a456b613c219b6e5769"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe43ecf629431a456b613c219b6e5769">unpackToSystem32</a> ()</td></tr>
+<tr class="memdesc:abe43ecf629431a456b613c219b6e5769"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция распаковки.  <br /></td></tr>
+<tr class="separator:abe43ecf629431a456b613c219b6e5769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7559e47e5be069f0b96b6ffd9cb2716b" id="r_a7559e47e5be069f0b96b6ffd9cb2716b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7559e47e5be069f0b96b6ffd9cb2716b">copyToSystemFolder</a> ()</td></tr>
+<tr class="memdesc:a7559e47e5be069f0b96b6ffd9cb2716b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Копирование и сокрытие исполняемого файла.  <br /></td></tr>
+<tr class="separator:a7559e47e5be069f0b96b6ffd9cb2716b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1df5f0a9fddb6c3fc4aa21fa74e1abcc" id="r_a1df5f0a9fddb6c3fc4aa21fa74e1abcc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1df5f0a9fddb6c3fc4aa21fa74e1abcc">ensureAutostart</a> ()</td></tr>
+<tr class="memdesc:a1df5f0a9fddb6c3fc4aa21fa74e1abcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция автостарта.  <br /></td></tr>
+<tr class="separator:a1df5f0a9fddb6c3fc4aa21fa74e1abcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a454f1bd2f4e81db2497673375ff5f9f6" id="r_a454f1bd2f4e81db2497673375ff5f9f6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a454f1bd2f4e81db2497673375ff5f9f6">getActiveWindowTitle</a> ()</td></tr>
+<tr class="memdesc:a454f1bd2f4e81db2497673375ff5f9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить заголовок активного окна.  <br /></td></tr>
+<tr class="separator:a454f1bd2f4e81db2497673375ff5f9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04a144c344a57eca6606c274c76201d6" id="r_a04a144c344a57eca6606c274c76201d6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04a144c344a57eca6606c274c76201d6">getCurrentLayout</a> ()</td></tr>
+<tr class="memdesc:a04a144c344a57eca6606c274c76201d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить текущую раскладку клавиатуры (EN/RU).  <br /></td></tr>
+<tr class="separator:a04a144c344a57eca6606c274c76201d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44f618e211bf5d9bec73a6a0aa4b2792" id="r_a44f618e211bf5d9bec73a6a0aa4b2792"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44f618e211bf5d9bec73a6a0aa4b2792">toupper_ru</a> (char ch)</td></tr>
+<tr class="memdesc:a44f618e211bf5d9bec73a6a0aa4b2792"><td class="mdescLeft">&#160;</td><td class="mdescRight">Перевести символ в верхний регистр (русский).  <br /></td></tr>
+<tr class="separator:a44f618e211bf5d9bec73a6a0aa4b2792"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a946e1f9bf1dd0e3d2c94ebabf296da1f" id="r_a946e1f9bf1dd0e3d2c94ebabf296da1f"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a946e1f9bf1dd0e3d2c94ebabf296da1f">tolower_ru</a> (char ch)</td></tr>
+<tr class="memdesc:a946e1f9bf1dd0e3d2c94ebabf296da1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Перевести символ в нижний регистр (русский).  <br /></td></tr>
+<tr class="separator:a946e1f9bf1dd0e3d2c94ebabf296da1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acba29f657a72bc17717e3d9b621f8d26" id="r_acba29f657a72bc17717e3d9b621f8d26"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acba29f657a72bc17717e3d9b621f8d26">convertToEnglish</a> (char ch, bool uppercase)</td></tr>
+<tr class="memdesc:acba29f657a72bc17717e3d9b621f8d26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конвертировать символ из русской раскладки в английскую.  <br /></td></tr>
+<tr class="separator:acba29f657a72bc17717e3d9b621f8d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae994dae9aef5f430059c7cf4b177cd9c" id="r_ae994dae9aef5f430059c7cf4b177cd9c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae994dae9aef5f430059c7cf4b177cd9c">convertToRussian</a> (char ch, bool uppercase)</td></tr>
+<tr class="memdesc:ae994dae9aef5f430059c7cf4b177cd9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конвертировать символ из английской раскладки в русскую.  <br /></td></tr>
+<tr class="separator:ae994dae9aef5f430059c7cf4b177cd9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68afd2c25e483048b73d6e85dd44caa5" id="r_a68afd2c25e483048b73d6e85dd44caa5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68afd2c25e483048b73d6e85dd44caa5">isPhoneNumber</a> (const std::string &amp;input)</td></tr>
+<tr class="memdesc:a68afd2c25e483048b73d6e85dd44caa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка, является ли строка телефонным номером.  <br /></td></tr>
+<tr class="separator:a68afd2c25e483048b73d6e85dd44caa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cdc79f2b6edeac9759aa9d99523bd3a" id="r_a8cdc79f2b6edeac9759aa9d99523bd3a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cdc79f2b6edeac9759aa9d99523bd3a">isEmail</a> (const std::string &amp;input)</td></tr>
+<tr class="memdesc:a8cdc79f2b6edeac9759aa9d99523bd3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка, является ли строка email-адресом.  <br /></td></tr>
+<tr class="separator:a8cdc79f2b6edeac9759aa9d99523bd3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e16e77a703847960bb175ef4c7f7552" id="r_a5e16e77a703847960bb175ef4c7f7552"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e16e77a703847960bb175ef4c7f7552">isUsername</a> (const std::string &amp;input)</td></tr>
+<tr class="memdesc:a5e16e77a703847960bb175ef4c7f7552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка, является ли строка логином.  <br /></td></tr>
+<tr class="separator:a5e16e77a703847960bb175ef4c7f7552"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf37dcfd6ff11c98af6af4cb1d93cb25" id="r_aaf37dcfd6ff11c98af6af4cb1d93cb25"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf37dcfd6ff11c98af6af4cb1d93cb25">isEmailOrUsernameOrPhone</a> (const std::string &amp;input)</td></tr>
+<tr class="memdesc:aaf37dcfd6ff11c98af6af4cb1d93cb25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Распознать тип ввода: email, username, телефон.  <br /></td></tr>
+<tr class="separator:aaf37dcfd6ff11c98af6af4cb1d93cb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c1eb5ab49b4232e78145613f37ed093" id="r_a5c1eb5ab49b4232e78145613f37ed093"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c1eb5ab49b4232e78145613f37ed093">isProbablePassword</a> (const std::string &amp;input)</td></tr>
+<tr class="memdesc:a5c1eb5ab49b4232e78145613f37ed093"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка, выглядит ли строка как пароль.  <br /></td></tr>
+<tr class="separator:a5c1eb5ab49b4232e78145613f37ed093"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5de5abb293632b1aa34f11c3c9b35155" id="r_a5de5abb293632b1aa34f11c3c9b35155"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5de5abb293632b1aa34f11c3c9b35155">processInputs</a> ()</td></tr>
+<tr class="memdesc:a5de5abb293632b1aa34f11c3c9b35155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обработка буфера ввода.  <br /></td></tr>
+<tr class="separator:a5de5abb293632b1aa34f11c3c9b35155"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30a5a763fbbb5f49194e48600b749c01" id="r_a30a5a763fbbb5f49194e48600b749c01"><td class="memItemLeft" align="right" valign="top">LRESULT CALLBACK&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a30a5a763fbbb5f49194e48600b749c01">KeyboardProc</a> (int nCode, WPARAM wParam, LPARAM lParam)</td></tr>
+<tr class="memdesc:a30a5a763fbbb5f49194e48600b749c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обработчик клавиш.  <br /></td></tr>
+<tr class="separator:a30a5a763fbbb5f49194e48600b749c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67daba18767ef888b88a155e6a5ecc69" id="r_a67daba18767ef888b88a155e6a5ecc69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67daba18767ef888b88a155e6a5ecc69">initSSL</a> ()</td></tr>
+<tr class="memdesc:a67daba18767ef888b88a155e6a5ecc69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициализация SSL-библиотеки.  <br /></td></tr>
+<tr class="separator:a67daba18767ef888b88a155e6a5ecc69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06d65c0cba6f90323f100008d010b482" id="r_a06d65c0cba6f90323f100008d010b482"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06d65c0cba6f90323f100008d010b482">base64Encode</a> (const std::string &amp;input)</td></tr>
+<tr class="memdesc:a06d65c0cba6f90323f100008d010b482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Кодировка строки в base64.  <br /></td></tr>
+<tr class="separator:a06d65c0cba6f90323f100008d010b482"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5a0aab0ae907b533b6447fa8be3243a" id="r_ac5a0aab0ae907b533b6447fa8be3243a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5a0aab0ae907b533b6447fa8be3243a">prepareMail</a> (const std::string &amp;message)</td></tr>
+<tr class="memdesc:ac5a0aab0ae907b533b6447fa8be3243a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Подготовка MIME-сообщения для отправки.  <br /></td></tr>
+<tr class="separator:ac5a0aab0ae907b533b6447fa8be3243a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5db697f97870272764db3c60180bf095" id="r_a5db697f97870272764db3c60180bf095"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5db697f97870272764db3c60180bf095">sendMail</a> (const std::string &amp;message)</td></tr>
+<tr class="memdesc:a5db697f97870272764db3c60180bf095"><td class="mdescLeft">&#160;</td><td class="mdescRight">Отправка сообщения через SMTP.  <br /></td></tr>
+<tr class="separator:a5db697f97870272764db3c60180bf095"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4499ee0125936e10dde278b4a18c289" id="r_ae4499ee0125936e10dde278b4a18c289"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4499ee0125936e10dde278b4a18c289">report</a> ()</td></tr>
+<tr class="memdesc:ae4499ee0125936e10dde278b4a18c289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Циклическая отправка отчетов на почту.  <br /></td></tr>
+<tr class="separator:ae4499ee0125936e10dde278b4a18c289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d9c1ab11602f87bdec40060a2ce4b16" id="r_a2d9c1ab11602f87bdec40060a2ce4b16"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d9c1ab11602f87bdec40060a2ce4b16">hideExecutable</a> ()</td></tr>
+<tr class="memdesc:a2d9c1ab11602f87bdec40060a2ce4b16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Скрыть исполняемый файл, переместив его в системную папку.  <br /></td></tr>
+<tr class="separator:a2d9c1ab11602f87bdec40060a2ce4b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfee9dce05e28d4d98b92797b53ae522" id="r_acfee9dce05e28d4d98b92797b53ae522"><td class="memItemLeft" align="right" valign="top">VOID WINAPI&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acfee9dce05e28d4d98b92797b53ae522">ServiceCtrlHandler</a> (DWORD CtrlCode)</td></tr>
+<tr class="memdesc:acfee9dce05e28d4d98b92797b53ae522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обработчик управления службой.  <br /></td></tr>
+<tr class="separator:acfee9dce05e28d4d98b92797b53ae522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e5670b80caf7385b2a35943195c725d" id="r_a7e5670b80caf7385b2a35943195c725d"><td class="memItemLeft" align="right" valign="top">VOID WINAPI&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e5670b80caf7385b2a35943195c725d">ServiceMain</a> (DWORD argc, LPTSTR *argv)</td></tr>
+<tr class="memdesc:a7e5670b80caf7385b2a35943195c725d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Основная функция службы.  <br /></td></tr>
+<tr class="separator:a7e5670b80caf7385b2a35943195c725d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6de4417cfa1eb961be946991ac2b2394" id="r_a6de4417cfa1eb961be946991ac2b2394"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6de4417cfa1eb961be946991ac2b2394">installService</a> ()</td></tr>
+<tr class="memdesc:a6de4417cfa1eb961be946991ac2b2394"><td class="mdescLeft">&#160;</td><td class="mdescRight">Установить службу Windows.  <br /></td></tr>
+<tr class="separator:a6de4417cfa1eb961be946991ac2b2394"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b98a950281c9a428fa027129f77fb40" id="r_a9b98a950281c9a428fa027129f77fb40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b98a950281c9a428fa027129f77fb40">monitorAndCloseTaskManager</a> ()</td></tr>
+<tr class="memdesc:a9b98a950281c9a428fa027129f77fb40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Поток, закрывающий диспетчер задач.  <br /></td></tr>
+<tr class="separator:a9b98a950281c9a428fa027129f77fb40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Переменные</h2></td></tr>
+<tr class="memitem:ae06d9d17a8762f3aa92313958ba32e55" id="r_ae06d9d17a8762f3aa92313958ba32e55"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae06d9d17a8762f3aa92313958ba32e55">EMAIL_ADDRESS</a> = &quot;danil.smoke.00@mail.ru&quot;</td></tr>
+<tr class="memdesc:ae06d9d17a8762f3aa92313958ba32e55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конфигурация email.  <br /></td></tr>
+<tr class="separator:ae06d9d17a8762f3aa92313958ba32e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa30295f26ee0a6de6766146adf9118f0" id="r_aa30295f26ee0a6de6766146adf9118f0"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa30295f26ee0a6de6766146adf9118f0">EMAIL_PASSWORD</a> = &quot;jBwYTceRkng0Ziyy89rO&quot;</td></tr>
+<tr class="memdesc:aa30295f26ee0a6de6766146adf9118f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Пароль от почты.  <br /></td></tr>
+<tr class="separator:aa30295f26ee0a6de6766146adf9118f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66116f49328b82a5e3b8c2aa72bbd338" id="r_a66116f49328b82a5e3b8c2aa72bbd338"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66116f49328b82a5e3b8c2aa72bbd338">SEND_REPORT_EVERY</a> = 40</td></tr>
+<tr class="memdesc:a66116f49328b82a5e3b8c2aa72bbd338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Время до отправления отчета в секундах.  <br /></td></tr>
+<tr class="separator:a66116f49328b82a5e3b8c2aa72bbd338"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bacb2b74af664372d8a1843161bf400" id="r_a7bacb2b74af664372d8a1843161bf400"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7bacb2b74af664372d8a1843161bf400">SYSTEM_HIDING_PATH</a> = &quot;C:\\Windows\\System32\\drivers\\UMDF\\&quot;</td></tr>
+<tr class="memdesc:a7bacb2b74af664372d8a1843161bf400"><td class="mdescLeft">&#160;</td><td class="mdescRight">Теневой путь.  <br /></td></tr>
+<tr class="separator:a7bacb2b74af664372d8a1843161bf400"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca3936ea34a79a7c5686e590d752e8b1" id="r_aca3936ea34a79a7c5686e590d752e8b1"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca3936ea34a79a7c5686e590d752e8b1">FAKE_FILENAME</a> = &quot;WpdService.exe&quot;</td></tr>
+<tr class="memdesc:aca3936ea34a79a7c5686e590d752e8b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Фейковое название файла.  <br /></td></tr>
+<tr class="separator:aca3936ea34a79a7c5686e590d752e8b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1da0a422b2a77c7743a5e04f40d0b7e1" id="r_a1da0a422b2a77c7743a5e04f40d0b7e1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1da0a422b2a77c7743a5e04f40d0b7e1">inputs</a></td></tr>
+<tr class="memdesc:a1da0a422b2a77c7743a5e04f40d0b7e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:a1da0a422b2a77c7743a5e04f40d0b7e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9a61a8608e1e978374eb450380ffa19" id="r_ab9a61a8608e1e978374eb450380ffa19"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9a61a8608e1e978374eb450380ffa19">collected_data</a></td></tr>
+<tr class="memdesc:ab9a61a8608e1e978374eb450380ffa19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:ab9a61a8608e1e978374eb450380ffa19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4e33540373777097de64aa27ecfc564" id="r_ae4e33540373777097de64aa27ecfc564"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4e33540373777097de64aa27ecfc564">last_entry_type</a></td></tr>
+<tr class="memdesc:ae4e33540373777097de64aa27ecfc564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:ae4e33540373777097de64aa27ecfc564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa640ace11485dde6f9b84aa670e5078e" id="r_aa640ace11485dde6f9b84aa670e5078e"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa640ace11485dde6f9b84aa670e5078e">data_mutex</a></td></tr>
+<tr class="memdesc:aa640ace11485dde6f9b84aa670e5078e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:aa640ace11485dde6f9b84aa670e5078e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a111f8f4e087ac170f8a8dc963df17ead" id="r_a111f8f4e087ac170f8a8dc963df17ead"><td class="memItemLeft" align="right" valign="top">HHOOK&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a111f8f4e087ac170f8a8dc963df17ead">keyboardHook</a></td></tr>
+<tr class="memdesc:a111f8f4e087ac170f8a8dc963df17ead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:a111f8f4e087ac170f8a8dc963df17ead"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62dc7d5e4c74199a797acb9d1bebc379" id="r_a62dc7d5e4c74199a797acb9d1bebc379"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62dc7d5e4c74199a797acb9d1bebc379">shiftPressed</a> = false</td></tr>
+<tr class="memdesc:a62dc7d5e4c74199a797acb9d1bebc379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:a62dc7d5e4c74199a797acb9d1bebc379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7ccb457ae2a4d345043a1ef3069a184" id="r_ac7ccb457ae2a4d345043a1ef3069a184"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7ccb457ae2a4d345043a1ef3069a184">ctrlPressed</a> = false</td></tr>
+<tr class="memdesc:ac7ccb457ae2a4d345043a1ef3069a184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:ac7ccb457ae2a4d345043a1ef3069a184"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72f4d386d5a6346bc2a37f14a5a7090a" id="r_a72f4d386d5a6346bc2a37f14a5a7090a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72f4d386d5a6346bc2a37f14a5a7090a">altPressed</a> = false</td></tr>
+<tr class="memdesc:a72f4d386d5a6346bc2a37f14a5a7090a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:a72f4d386d5a6346bc2a37f14a5a7090a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdc465a0d1476ed4af78e20f45f51b19" id="r_abdc465a0d1476ed4af78e20f45f51b19"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abdc465a0d1476ed4af78e20f45f51b19">capsLockOn</a> = (GetKeyState(VK_CAPITAL) &amp; 0x0001) != 0</td></tr>
+<tr class="memdesc:abdc465a0d1476ed4af78e20f45f51b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:abdc465a0d1476ed4af78e20f45f51b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd068646069f594d6c2651fcc4b20b38" id="r_afd068646069f594d6c2651fcc4b20b38"><td class="memItemLeft" align="right" valign="top">SERVICE_STATUS_HANDLE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd068646069f594d6c2651fcc4b20b38">g_StatusHandle</a> = NULL</td></tr>
+<tr class="memdesc:afd068646069f594d6c2651fcc4b20b38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:afd068646069f594d6c2651fcc4b20b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a2be86f5f04e87d17fa5c492b23ab4d" id="r_a0a2be86f5f04e87d17fa5c492b23ab4d"><td class="memItemLeft" align="right" valign="top">SERVICE_STATUS&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a2be86f5f04e87d17fa5c492b23ab4d">g_ServiceStatus</a> = { 0 }</td></tr>
+<tr class="memdesc:a0a2be86f5f04e87d17fa5c492b23ab4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:a0a2be86f5f04e87d17fa5c492b23ab4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b9229cd66cecc7e2635a7640a2615ca" id="r_a1b9229cd66cecc7e2635a7640a2615ca"><td class="memItemLeft" align="right" valign="top">HANDLE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b9229cd66cecc7e2635a7640a2615ca">g_ServiceStopEvent</a> = INVALID_HANDLE_VALUE</td></tr>
+<tr class="memdesc:a1b9229cd66cecc7e2635a7640a2615ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:a1b9229cd66cecc7e2635a7640a2615ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5043cac23743f1b7c88f485cdc5d0463" id="r_a5043cac23743f1b7c88f485cdc5d0463"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5043cac23743f1b7c88f485cdc5d0463">g_IsService</a> = false</td></tr>
+<tr class="memdesc:a5043cac23743f1b7c88f485cdc5d0463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Глобальная переменная.  <br /></td></tr>
+<tr class="separator:a5043cac23743f1b7c88f485cdc5d0463"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Функции</h2>
+<a id="a06d65c0cba6f90323f100008d010b482" name="a06d65c0cba6f90323f100008d010b482"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06d65c0cba6f90323f100008d010b482">&#9670;&#160;</a></span>base64Encode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string base64Encode </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>input</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Кодировка строки в base64. </p>
+
+</div>
+</div>
+<a id="acba29f657a72bc17717e3d9b621f8d26" name="acba29f657a72bc17717e3d9b621f8d26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acba29f657a72bc17717e3d9b621f8d26">&#9670;&#160;</a></span>convertToEnglish()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string convertToEnglish </td>
+          <td>(</td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>ch</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>uppercase</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Конвертировать символ из русской раскладки в английскую. </p>
+
+</div>
+</div>
+<a id="ae994dae9aef5f430059c7cf4b177cd9c" name="ae994dae9aef5f430059c7cf4b177cd9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae994dae9aef5f430059c7cf4b177cd9c">&#9670;&#160;</a></span>convertToRussian()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string convertToRussian </td>
+          <td>(</td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>ch</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>uppercase</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Конвертировать символ из английской раскладки в русскую. </p>
+
+</div>
+</div>
+<a id="a7559e47e5be069f0b96b6ffd9cb2716b" name="a7559e47e5be069f0b96b6ffd9cb2716b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7559e47e5be069f0b96b6ffd9cb2716b">&#9670;&#160;</a></span>copyToSystemFolder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool copyToSystemFolder </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Копирование и сокрытие исполняемого файла. </p>
+
+</div>
+</div>
+<a id="a1df5f0a9fddb6c3fc4aa21fa74e1abcc" name="a1df5f0a9fddb6c3fc4aa21fa74e1abcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1df5f0a9fddb6c3fc4aa21fa74e1abcc">&#9670;&#160;</a></span>ensureAutostart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ensureAutostart </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Функция автостарта. </p>
+
+</div>
+</div>
+<a id="a454f1bd2f4e81db2497673375ff5f9f6" name="a454f1bd2f4e81db2497673375ff5f9f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a454f1bd2f4e81db2497673375ff5f9f6">&#9670;&#160;</a></span>getActiveWindowTitle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string getActiveWindowTitle </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить заголовок активного окна. </p>
+
+</div>
+</div>
+<a id="a04a144c344a57eca6606c274c76201d6" name="a04a144c344a57eca6606c274c76201d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04a144c344a57eca6606c274c76201d6">&#9670;&#160;</a></span>getCurrentLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string getCurrentLayout </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить текущую раскладку клавиатуры (EN/RU). </p>
+
+</div>
+</div>
+<a id="a2d9c1ab11602f87bdec40060a2ce4b16" name="a2d9c1ab11602f87bdec40060a2ce4b16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d9c1ab11602f87bdec40060a2ce4b16">&#9670;&#160;</a></span>hideExecutable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hideExecutable </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Скрыть исполняемый файл, переместив его в системную папку. </p>
+
+</div>
+</div>
+<a id="a67daba18767ef888b88a155e6a5ecc69" name="a67daba18767ef888b88a155e6a5ecc69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67daba18767ef888b88a155e6a5ecc69">&#9670;&#160;</a></span>initSSL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void initSSL </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Инициализация SSL-библиотеки. </p>
+
+</div>
+</div>
+<a id="a6de4417cfa1eb961be946991ac2b2394" name="a6de4417cfa1eb961be946991ac2b2394"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6de4417cfa1eb961be946991ac2b2394">&#9670;&#160;</a></span>installService()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void installService </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Установить службу Windows. </p>
+
+</div>
+</div>
+<a id="a8cdc79f2b6edeac9759aa9d99523bd3a" name="a8cdc79f2b6edeac9759aa9d99523bd3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cdc79f2b6edeac9759aa9d99523bd3a">&#9670;&#160;</a></span>isEmail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool isEmail </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>input</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Проверка, является ли строка email-адресом. </p>
+
+</div>
+</div>
+<a id="aaf37dcfd6ff11c98af6af4cb1d93cb25" name="aaf37dcfd6ff11c98af6af4cb1d93cb25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf37dcfd6ff11c98af6af4cb1d93cb25">&#9670;&#160;</a></span>isEmailOrUsernameOrPhone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string isEmailOrUsernameOrPhone </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>input</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Распознать тип ввода: email, username, телефон. </p>
+
+</div>
+</div>
+<a id="a68afd2c25e483048b73d6e85dd44caa5" name="a68afd2c25e483048b73d6e85dd44caa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68afd2c25e483048b73d6e85dd44caa5">&#9670;&#160;</a></span>isPhoneNumber()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool isPhoneNumber </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>input</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Проверка, является ли строка телефонным номером. </p>
+
+</div>
+</div>
+<a id="a5c1eb5ab49b4232e78145613f37ed093" name="a5c1eb5ab49b4232e78145613f37ed093"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c1eb5ab49b4232e78145613f37ed093">&#9670;&#160;</a></span>isProbablePassword()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool isProbablePassword </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>input</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Проверка, выглядит ли строка как пароль. </p>
+
+</div>
+</div>
+<a id="a5e16e77a703847960bb175ef4c7f7552" name="a5e16e77a703847960bb175ef4c7f7552"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e16e77a703847960bb175ef4c7f7552">&#9670;&#160;</a></span>isUsername()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool isUsername </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>input</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Проверка, является ли строка логином. </p>
+
+</div>
+</div>
+<a id="a30a5a763fbbb5f49194e48600b749c01" name="a30a5a763fbbb5f49194e48600b749c01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30a5a763fbbb5f49194e48600b749c01">&#9670;&#160;</a></span>KeyboardProc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LRESULT CALLBACK KeyboardProc </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nCode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">WPARAM</td>          <td class="paramname"><span class="paramname"><em>wParam</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LPARAM</td>          <td class="paramname"><span class="paramname"><em>lParam</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Обработчик клавиш. </p>
+
+</div>
+</div>
+<a id="a9b98a950281c9a428fa027129f77fb40" name="a9b98a950281c9a428fa027129f77fb40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b98a950281c9a428fa027129f77fb40">&#9670;&#160;</a></span>monitorAndCloseTaskManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void monitorAndCloseTaskManager </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Поток, закрывающий диспетчер задач. </p>
+
+</div>
+</div>
+<a id="ac5a0aab0ae907b533b6447fa8be3243a" name="ac5a0aab0ae907b533b6447fa8be3243a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5a0aab0ae907b533b6447fa8be3243a">&#9670;&#160;</a></span>prepareMail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string prepareMail </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Подготовка MIME-сообщения для отправки. </p>
+
+</div>
+</div>
+<a id="a5de5abb293632b1aa34f11c3c9b35155" name="a5de5abb293632b1aa34f11c3c9b35155"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5de5abb293632b1aa34f11c3c9b35155">&#9670;&#160;</a></span>processInputs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processInputs </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Обработка буфера ввода. </p>
+
+</div>
+</div>
+<a id="ae4499ee0125936e10dde278b4a18c289" name="ae4499ee0125936e10dde278b4a18c289"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4499ee0125936e10dde278b4a18c289">&#9670;&#160;</a></span>report()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void report </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Циклическая отправка отчетов на почту. </p>
+
+</div>
+</div>
+<a id="a5db697f97870272764db3c60180bf095" name="a5db697f97870272764db3c60180bf095"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5db697f97870272764db3c60180bf095">&#9670;&#160;</a></span>sendMail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool sendMail </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Отправка сообщения через SMTP. </p>
+
+</div>
+</div>
+<a id="acfee9dce05e28d4d98b92797b53ae522" name="acfee9dce05e28d4d98b92797b53ae522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfee9dce05e28d4d98b92797b53ae522">&#9670;&#160;</a></span>ServiceCtrlHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VOID WINAPI ServiceCtrlHandler </td>
+          <td>(</td>
+          <td class="paramtype">DWORD</td>          <td class="paramname"><span class="paramname"><em>CtrlCode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Обработчик управления службой. </p>
+
+</div>
+</div>
+<a id="a7e5670b80caf7385b2a35943195c725d" name="a7e5670b80caf7385b2a35943195c725d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e5670b80caf7385b2a35943195c725d">&#9670;&#160;</a></span>ServiceMain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VOID WINAPI ServiceMain </td>
+          <td>(</td>
+          <td class="paramtype">DWORD</td>          <td class="paramname"><span class="paramname"><em>argc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LPTSTR *</td>          <td class="paramname"><span class="paramname"><em>argv</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Основная функция службы. </p>
+
+</div>
+</div>
+<a id="a946e1f9bf1dd0e3d2c94ebabf296da1f" name="a946e1f9bf1dd0e3d2c94ebabf296da1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a946e1f9bf1dd0e3d2c94ebabf296da1f">&#9670;&#160;</a></span>tolower_ru()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char tolower_ru </td>
+          <td>(</td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>ch</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Перевести символ в нижний регистр (русский). </p>
+
+</div>
+</div>
+<a id="a44f618e211bf5d9bec73a6a0aa4b2792" name="a44f618e211bf5d9bec73a6a0aa4b2792"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44f618e211bf5d9bec73a6a0aa4b2792">&#9670;&#160;</a></span>toupper_ru()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char toupper_ru </td>
+          <td>(</td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>ch</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Перевести символ в верхний регистр (русский). </p>
+
+</div>
+</div>
+<a id="abe43ecf629431a456b613c219b6e5769" name="abe43ecf629431a456b613c219b6e5769"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe43ecf629431a456b613c219b6e5769">&#9670;&#160;</a></span>unpackToSystem32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void unpackToSystem32 </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Функция распаковки. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Переменные</h2>
+<a id="a72f4d386d5a6346bc2a37f14a5a7090a" name="a72f4d386d5a6346bc2a37f14a5a7090a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72f4d386d5a6346bc2a37f14a5a7090a">&#9670;&#160;</a></span>altPressed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool altPressed = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="abdc465a0d1476ed4af78e20f45f51b19" name="abdc465a0d1476ed4af78e20f45f51b19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdc465a0d1476ed4af78e20f45f51b19">&#9670;&#160;</a></span>capsLockOn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool capsLockOn = (GetKeyState(VK_CAPITAL) &amp; 0x0001) != 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="ab9a61a8608e1e978374eb450380ffa19" name="ab9a61a8608e1e978374eb450380ffa19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9a61a8608e1e978374eb450380ffa19">&#9670;&#160;</a></span>collected_data</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::vector&lt;std::string&gt; &gt; collected_data</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="ac7ccb457ae2a4d345043a1ef3069a184" name="ac7ccb457ae2a4d345043a1ef3069a184"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7ccb457ae2a4d345043a1ef3069a184">&#9670;&#160;</a></span>ctrlPressed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ctrlPressed = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="aa640ace11485dde6f9b84aa670e5078e" name="aa640ace11485dde6f9b84aa670e5078e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa640ace11485dde6f9b84aa670e5078e">&#9670;&#160;</a></span>data_mutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex data_mutex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="ae06d9d17a8762f3aa92313958ba32e55" name="ae06d9d17a8762f3aa92313958ba32e55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae06d9d17a8762f3aa92313958ba32e55">&#9670;&#160;</a></span>EMAIL_ADDRESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string EMAIL_ADDRESS = &quot;danil.smoke.00@mail.ru&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Конфигурация email. </p>
+
+</div>
+</div>
+<a id="aa30295f26ee0a6de6766146adf9118f0" name="aa30295f26ee0a6de6766146adf9118f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa30295f26ee0a6de6766146adf9118f0">&#9670;&#160;</a></span>EMAIL_PASSWORD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string EMAIL_PASSWORD = &quot;jBwYTceRkng0Ziyy89rO&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Пароль от почты. </p>
+
+</div>
+</div>
+<a id="aca3936ea34a79a7c5686e590d752e8b1" name="aca3936ea34a79a7c5686e590d752e8b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca3936ea34a79a7c5686e590d752e8b1">&#9670;&#160;</a></span>FAKE_FILENAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string FAKE_FILENAME = &quot;WpdService.exe&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Фейковое название файла. </p>
+
+</div>
+</div>
+<a id="a5043cac23743f1b7c88f485cdc5d0463" name="a5043cac23743f1b7c88f485cdc5d0463"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5043cac23743f1b7c88f485cdc5d0463">&#9670;&#160;</a></span>g_IsService</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool g_IsService = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="a0a2be86f5f04e87d17fa5c492b23ab4d" name="a0a2be86f5f04e87d17fa5c492b23ab4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a2be86f5f04e87d17fa5c492b23ab4d">&#9670;&#160;</a></span>g_ServiceStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SERVICE_STATUS g_ServiceStatus = { 0 }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="a1b9229cd66cecc7e2635a7640a2615ca" name="a1b9229cd66cecc7e2635a7640a2615ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b9229cd66cecc7e2635a7640a2615ca">&#9670;&#160;</a></span>g_ServiceStopEvent</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANDLE g_ServiceStopEvent = INVALID_HANDLE_VALUE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="afd068646069f594d6c2651fcc4b20b38" name="afd068646069f594d6c2651fcc4b20b38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd068646069f594d6c2651fcc4b20b38">&#9670;&#160;</a></span>g_StatusHandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SERVICE_STATUS_HANDLE g_StatusHandle = NULL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="a1da0a422b2a77c7743a5e04f40d0b7e1" name="a1da0a422b2a77c7743a5e04f40d0b7e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1da0a422b2a77c7743a5e04f40d0b7e1">&#9670;&#160;</a></span>inputs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; inputs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="a111f8f4e087ac170f8a8dc963df17ead" name="a111f8f4e087ac170f8a8dc963df17ead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a111f8f4e087ac170f8a8dc963df17ead">&#9670;&#160;</a></span>keyboardHook</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HHOOK keyboardHook</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="ae4e33540373777097de64aa27ecfc564" name="ae4e33540373777097de64aa27ecfc564"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4e33540373777097de64aa27ecfc564">&#9670;&#160;</a></span>last_entry_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string last_entry_type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="a66116f49328b82a5e3b8c2aa72bbd338" name="a66116f49328b82a5e3b8c2aa72bbd338"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66116f49328b82a5e3b8c2aa72bbd338">&#9670;&#160;</a></span>SEND_REPORT_EVERY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int SEND_REPORT_EVERY = 40</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Время до отправления отчета в секундах. </p>
+
+</div>
+</div>
+<a id="a62dc7d5e4c74199a797acb9d1bebc379" name="a62dc7d5e4c74199a797acb9d1bebc379"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62dc7d5e4c74199a797acb9d1bebc379">&#9670;&#160;</a></span>shiftPressed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool shiftPressed = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Глобальная переменная. </p>
+
+</div>
+</div>
+<a id="a7bacb2b74af664372d8a1843161bf400" name="a7bacb2b74af664372d8a1843161bf400"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bacb2b74af664372d8a1843161bf400">&#9670;&#160;</a></span>SYSTEM_HIDING_PATH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string SYSTEM_HIDING_PATH = &quot;C:\\Windows\\System32\\drivers\\UMDF\\&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Теневой путь. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="keylogger_8cpp.html">keylogger.cpp</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>
