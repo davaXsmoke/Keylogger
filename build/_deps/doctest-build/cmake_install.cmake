@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Admin/Desktop/key/build/_deps/doctest-src
+# Install script for directory: C:/Users/user/Desktop/key1/build/_deps/doctest-src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,28 +34,28 @@ endif()
 
 # Set path to fallback-tool for dependency-resolution.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Program Files/mingw64/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "C:/msys64/mingw64/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/doctest" TYPE FILE FILES "C:/Users/Admin/Desktop/key/build/_deps/doctest-src/doctest/doctest.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/doctest" TYPE FILE FILES "C:/Users/user/Desktop/key1/build/_deps/doctest-src/doctest/doctest.h")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/doctest" TYPE DIRECTORY FILES "C:/Users/Admin/Desktop/key/build/_deps/doctest-src/doctest/extensions" FILES_MATCHING REGEX "/[^/]*\\.h$")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/doctest" TYPE DIRECTORY FILES "C:/Users/user/Desktop/key1/build/_deps/doctest-src/doctest/extensions" FILES_MATCHING REGEX "/[^/]*\\.h$")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/doctest" TYPE FILE FILES
-    "C:/Users/Admin/Desktop/key/build/_deps/doctest-build/generated/doctestConfig.cmake"
-    "C:/Users/Admin/Desktop/key/build/_deps/doctest-build/generated/doctestConfigVersion.cmake"
+    "C:/Users/user/Desktop/key1/build/_deps/doctest-build/generated/doctestConfig.cmake"
+    "C:/Users/user/Desktop/key1/build/_deps/doctest-build/generated/doctestConfigVersion.cmake"
     )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/doctest" TYPE FILE FILES
-    "C:/Users/Admin/Desktop/key/build/_deps/doctest-src/scripts/cmake/doctest.cmake"
-    "C:/Users/Admin/Desktop/key/build/_deps/doctest-src/scripts/cmake/doctestAddTests.cmake"
+    "C:/Users/user/Desktop/key1/build/_deps/doctest-src/scripts/cmake/doctest.cmake"
+    "C:/Users/user/Desktop/key1/build/_deps/doctest-src/scripts/cmake/doctestAddTests.cmake"
     )
 endif()
 
@@ -63,7 +63,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/doctest/doctestTargets.cmake")
     file(DIFFERENT _cmake_export_file_changed FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/doctest/doctestTargets.cmake"
-         "C:/Users/Admin/Desktop/key/build/_deps/doctest-build/CMakeFiles/Export/fa5ba3fec28c3a20c06e45fe40ff2f72/doctestTargets.cmake")
+         "C:/Users/user/Desktop/key1/build/_deps/doctest-build/CMakeFiles/Export/fa5ba3fec28c3a20c06e45fe40ff2f72/doctestTargets.cmake")
     if(_cmake_export_file_changed)
       file(GLOB _cmake_old_config_files "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/doctest/doctestTargets-*.cmake")
       if(_cmake_old_config_files)
@@ -76,6 +76,12 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     endif()
     unset(_cmake_export_file_changed)
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/doctest" TYPE FILE FILES "C:/Users/Admin/Desktop/key/build/_deps/doctest-build/CMakeFiles/Export/fa5ba3fec28c3a20c06e45fe40ff2f72/doctestTargets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/doctest" TYPE FILE FILES "C:/Users/user/Desktop/key1/build/_deps/doctest-build/CMakeFiles/Export/fa5ba3fec28c3a20c06e45fe40ff2f72/doctestTargets.cmake")
 endif()
 
+string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
+       "${CMAKE_INSTALL_MANIFEST_FILES}")
+if(CMAKE_INSTALL_LOCAL_ONLY)
+  file(WRITE "C:/Users/user/Desktop/key1/build/_deps/doctest-build/install_local_manifest.txt"
+     "${CMAKE_INSTALL_MANIFEST_CONTENT}")
+endif()

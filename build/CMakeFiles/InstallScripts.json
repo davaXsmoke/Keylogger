@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/user/Desktop/key1/build/cmake_install.cmake",
+		"C:/Users/user/Desktop/key1/build/doctest/cmake_install.cmake",
+		"C:/Users/user/Desktop/key1/build/_deps/doctest-build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

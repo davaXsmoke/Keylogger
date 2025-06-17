@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/Admin/Desktop/key/tests/test_key.cpp" "CMakeFiles/test_keylogger.dir/tests/test_key.cpp.obj" "gcc" "CMakeFiles/test_keylogger.dir/tests/test_key.cpp.obj.d"
+  "C:/Users/user/Desktop/key1/tests/test_key.cpp" "CMakeFiles/test_keylogger.dir/tests/test_key.cpp.obj" "gcc" "CMakeFiles/test_keylogger.dir/tests/test_key.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
