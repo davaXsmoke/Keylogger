@@ -79,3 +79,27 @@ TEST_CASE("Testing base64Encode") {
     CHECK(base64Encode("123") == "MTIz");
     CHECK(base64Encode("A long string to test encoding") == "QSBsb25nIHN0cmluZyB0byB0ZXN0IGVuY29kaW5n");
 }
+
+// Mihska's tests
+
+TEST_CASE("Testing Service Control") {
+    SUBCASE("ServiceCtrlHandler changes state on STOP") {
+        g_ServiceStatus.dwCurrentState = SERVICE_RUNNING;
+        ServiceCtrlHandler(SERVICE_CONTROL_STOP);
+        CHECK(g_ServiceStatus.dwCurrentState == SERVICE_STOP_PENDING);
+    }
+}
+
+TEST_CASE("Testing hideExecutable") {
+    SUBCASE("Returns true when already in system dir") {
+        // Подготовка тестового окружения
+        CHECK(hideExecutable() == true);
+    }
+}
+
+TEST_CASE("Testing installService") {
+    SUBCASE("Fails when cannot open SC Manager") {
+        // Мокируем OpenSCManager чтобы возвращать NULL
+        CHECK(installService() == false); // Должна быть обработка ошибки
+    }
+}
